@@ -14,7 +14,9 @@ public class ThreadRelay {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Grafica grafica = new Grafica();
+        grafica.setVisible(true);
+        grafica.setSize(400, 400);
+        
     }
-    
 }
