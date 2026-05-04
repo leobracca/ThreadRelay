@@ -17,6 +17,10 @@ public class Grafica extends javax.swing.JFrame {
      */
     public Grafica() {
         initComponents();
+        setTitle("Staffetta");
+        setSize(400, 400);
+
+        btn_avvia.addActionListener(e -> avvia());
     }
 
     /**
@@ -59,6 +63,34 @@ public class Grafica extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    void avvia(){
+        Staffetta.Corridore observer = (n, valore) -> {
+        // TUTTO lo switch deve stare dentro invokeLater
+        java.awt.EventQueue.invokeLater(() -> {
+            switch (n) {
+                case 1 -> lbl1.setText(String.valueOf(valore));
+                case 2 -> lbl2.setText(String.valueOf(valore));
+                case 3 -> lbl3.setText(String.valueOf(valore));
+                case 4 -> lbl4.setText(String.valueOf(valore));
+            }
+        });
+    };
+
+        Staffetta t1 = new Staffetta(1, null);
+        t1.addCorridore(observer);
+        Staffetta t2 = new Staffetta(2, t1);
+        t2.addCorridore(observer);
+        Staffetta t3 = new Staffetta(3, t2);
+        t3.addCorridore(observer);
+        Staffetta t4 = new Staffetta(4, t3);
+        t4.addCorridore(observer);
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
 
     /**
      * @param args the command line arguments
