@@ -3,16 +3,33 @@ import java.util.*;
 
 public class Staffetta extends Thread{
     int n;
-    private Thread precedente;
+    private Staffetta precedente;
+    private boolean start = false;
     private List<Corridore> corridori = new ArrayList<>();
 
+    public Staffetta(int n){
+        this.n = n;
+    }
+    
+    void setPrecedente(Staffetta precedente){
+        this.precedente = precedente;
+    }
+    
+    void inizio(){
+        if(n == 1){
+            start = true;
+        }
+    }
+    
+    synchronized void sblocca(){
+        start = true;
+        this.notify();
+    }
+    
+    
+    
     public static interface Corridore{
         void update(int n, int valore);
-    }
-
-    public Staffetta(int n, Thread precedente){
-        this.n = n;
-        this.precedente = precedente;
     }
 
     void addCorridore(Corridore corridore){
@@ -28,12 +45,19 @@ public class Staffetta extends Thread{
     @Override
     public void run(){
         try{
-            if(precedente != null){
-                precedente.join();
+            synchronized(this){
+                while(!start){
+                    this.wait();
+                }
             }
 
             for(int i = 0; i < 100; i++){
                 notifyCorridori(i);
+                
+                if(i == 90 && precedente != null){
+                    precedente.sblocca();
+                }
+                
             Thread.sleep(100);
             }
         } 

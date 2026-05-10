@@ -82,15 +82,22 @@ public class Grafica extends javax.swing.JFrame {
         });
     };
 
-        Staffetta t1 = new Staffetta(1, null);
-        t1.addCorridore(observer);
-        Staffetta t2 = new Staffetta(2, t1);
-        t2.addCorridore(observer);
-        Staffetta t3 = new Staffetta(3, t2);
-        t3.addCorridore(observer);
-        Staffetta t4 = new Staffetta(4, t3);
-        t4.addCorridore(observer);
+        Staffetta t1 = new Staffetta(1);
+        Staffetta t2 = new Staffetta(2);
+        Staffetta t3 = new Staffetta(3);
+        Staffetta t4 = new Staffetta(4);
 
+        t1.sblocca();
+        
+        t1.setPrecedente(t2);
+        t2.setPrecedente(t3);
+        t3.setPrecedente(t4);
+        
+        t1.addCorridore(observer);
+        t2.addCorridore(observer);
+        t3.addCorridore(observer);
+        t4.addCorridore(observer);
+        
         t1.start();
         t2.start();
         t3.start();
