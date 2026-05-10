@@ -9,7 +9,7 @@ package threadrelay;
  * @author braccalenti.leonardo
  */
 public class Grafica extends javax.swing.JFrame {
-    
+    private Staffetta t1, t2, t3, t4;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Grafica.class.getName());
 
     /**
@@ -37,6 +37,7 @@ public class Grafica extends javax.swing.JFrame {
         lbl2 = new javax.swing.JLabel();
         lbl3 = new javax.swing.JLabel();
         lbl4 = new javax.swing.JLabel();
+        btn_ferma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -62,6 +63,11 @@ public class Grafica extends javax.swing.JFrame {
         getContentPane().add(lbl4);
         lbl4.setBounds(210, 120, 20, 16);
 
+        btn_ferma.setText("FERMA");
+        btn_ferma.addActionListener(this::btn_fermaActionPerformed);
+        getContentPane().add(btn_ferma);
+        btn_ferma.setBounds(60, 260, 72, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -69,9 +75,16 @@ public class Grafica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_avviaActionPerformed
 
+    private void btn_fermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fermaActionPerformed
+        if (t1 != null) t1.interrupt();
+        if (t2 != null) t2.interrupt();
+        if (t3 != null) t3.interrupt();
+        if (t4 != null) t4.interrupt();
+    }//GEN-LAST:event_btn_fermaActionPerformed
+
     void avvia(){
         Staffetta.Corridore observer = (n, valore) -> {
-        // TUTTO lo switch deve stare dentro invokeLater
+
         java.awt.EventQueue.invokeLater(() -> {
             switch (n) {
                 case 1 -> lbl1.setText(String.valueOf(valore));
@@ -82,10 +95,10 @@ public class Grafica extends javax.swing.JFrame {
         });
     };
 
-        Staffetta t1 = new Staffetta(1);
-        Staffetta t2 = new Staffetta(2);
-        Staffetta t3 = new Staffetta(3);
-        Staffetta t4 = new Staffetta(4);
+        t1 = new Staffetta(1);
+        t2 = new Staffetta(2);
+        t3 = new Staffetta(3);
+        t4 = new Staffetta(4);
 
         t1.sblocca();
         
@@ -131,6 +144,7 @@ public class Grafica extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_avvia;
+    private javax.swing.JButton btn_ferma;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;

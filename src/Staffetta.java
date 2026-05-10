@@ -5,6 +5,7 @@ public class Staffetta extends Thread{
     int n;
     private Staffetta precedente;
     private boolean start = false;
+    private boolean continuo = true;
     private List<Corridore> corridori = new ArrayList<>();
 
     public Staffetta(int n){
@@ -25,9 +26,7 @@ public class Staffetta extends Thread{
         start = true;
         this.notify();
     }
-    
-    
-    
+     
     public static interface Corridore{
         void update(int n, int valore);
     }
@@ -42,6 +41,12 @@ public class Staffetta extends Thread{
         }
     }
 
+    void controlloFermo(){
+        if(Thread.currentThread().isInterrupted()){
+            continuo = false;
+        }
+    }
+    
     @Override
     public void run(){
         try{
@@ -51,13 +56,14 @@ public class Staffetta extends Thread{
                 }
             }
 
-            for(int i = 0; i < 100; i++){
+            for(int i = 0; i < 100 && continuo == true; i++){
                 notifyCorridori(i);
                 
                 if(i == 90 && precedente != null){
                     precedente.sblocca();
                 }
                 
+            controlloFermo();
             Thread.sleep(100);
             }
         } 
