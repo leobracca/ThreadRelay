@@ -47,6 +47,12 @@ public class Staffetta extends Thread{
         }
     }
     
+    void controlloSblocco(int i){
+        if(i == 90 && precedente != null){
+            precedente.sblocca();
+        }
+    }
+    
     @Override
     public void run(){
         try{
@@ -59,12 +65,9 @@ public class Staffetta extends Thread{
             for(int i = 0; i < 100 && continuo == true; i++){
                 notifyCorridori(i);
                 
-                if(i == 90 && precedente != null){
-                    precedente.sblocca();
-                }
-                
-            controlloFermo();
-            Thread.sleep(100);
+                controlloSblocco(i);
+                controlloFermo();
+                Thread.sleep(100);
             }
         } 
         
