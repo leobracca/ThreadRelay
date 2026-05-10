@@ -39,30 +39,35 @@ public class Grafica extends javax.swing.JFrame {
         lbl4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);        
+        getContentPane().setLayout(null);
 
         btn_avvia.setText("AVVIA");
+        btn_avvia.addActionListener(this::btn_avviaActionPerformed);
         getContentPane().add(btn_avvia);
         btn_avvia.setBounds(180, 260, 72, 23);
 
         lbl1.setText("0");
         getContentPane().add(lbl1);
-        lbl1.setBounds(210, 30, 10, 16);
+        lbl1.setBounds(210, 30, 20, 16);
 
         lbl2.setText("0");
         getContentPane().add(lbl2);
-        lbl2.setBounds(210, 60, 10, 16);
+        lbl2.setBounds(210, 60, 20, 16);
 
         lbl3.setText("0");
         getContentPane().add(lbl3);
-        lbl3.setBounds(210, 90, 10, 16);
+        lbl3.setBounds(210, 90, 20, 16);
 
         lbl4.setText("0");
         getContentPane().add(lbl4);
-        lbl4.setBounds(210, 120, 10, 16);
+        lbl4.setBounds(210, 120, 20, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_avviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_avviaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_avviaActionPerformed
 
     void avvia(){
         Staffetta.Corridore observer = (n, valore) -> {
