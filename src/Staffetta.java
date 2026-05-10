@@ -3,23 +3,19 @@ import java.util.*;
 
 public class Staffetta extends Thread{
     int n;
+    int sleep;
     private Staffetta precedente;
     private boolean start = false;
     private boolean continuo = true;
     private List<Corridore> corridori = new ArrayList<>();
 
-    public Staffetta(int n){
+    public Staffetta(int n, int sleep){
         this.n = n;
+        this.sleep = sleep;
     }
     
     void setPrecedente(Staffetta precedente){
         this.precedente = precedente;
-    }
-    
-    void inizio(){
-        if(n == 1){
-            start = true;
-        }
     }
     
     synchronized void sblocca(){
@@ -67,7 +63,7 @@ public class Staffetta extends Thread{
                 
                 controlloSblocco(i);
                 controlloFermo();
-                Thread.sleep(100);
+                Thread.sleep(sleep);
             }
         } 
         

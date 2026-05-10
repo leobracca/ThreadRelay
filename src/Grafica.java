@@ -10,6 +10,8 @@ package threadrelay;
  */
 public class Grafica extends javax.swing.JFrame {
     private Staffetta t1, t2, t3, t4;
+    private int sleep;
+    private String difficolta;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Grafica.class.getName());
 
     /**
@@ -38,6 +40,7 @@ public class Grafica extends javax.swing.JFrame {
         lbl3 = new javax.swing.JLabel();
         lbl4 = new javax.swing.JLabel();
         btn_ferma = new javax.swing.JButton();
+        cmb_velocita = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -45,7 +48,7 @@ public class Grafica extends javax.swing.JFrame {
         btn_avvia.setText("AVVIA");
         btn_avvia.addActionListener(this::btn_avviaActionPerformed);
         getContentPane().add(btn_avvia);
-        btn_avvia.setBounds(180, 260, 72, 23);
+        btn_avvia.setBounds(160, 190, 72, 23);
 
         lbl1.setText("0");
         getContentPane().add(lbl1);
@@ -66,7 +69,11 @@ public class Grafica extends javax.swing.JFrame {
         btn_ferma.setText("FERMA");
         btn_ferma.addActionListener(this::btn_fermaActionPerformed);
         getContentPane().add(btn_ferma);
-        btn_ferma.setBounds(60, 260, 72, 23);
+        btn_ferma.setBounds(40, 190, 90, 23);
+
+        cmb_velocita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lento", "Normale", "Veloce" }));
+        getContentPane().add(cmb_velocita);
+        cmb_velocita.setBounds(270, 190, 80, 22);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -95,10 +102,12 @@ public class Grafica extends javax.swing.JFrame {
         });
     };
 
-        t1 = new Staffetta(1);
-        t2 = new Staffetta(2);
-        t3 = new Staffetta(3);
-        t4 = new Staffetta(4);
+        difficolta();
+        
+        t1 = new Staffetta(1, sleep);
+        t2 = new Staffetta(2, sleep);
+        t3 = new Staffetta(3, sleep);
+        t4 = new Staffetta(4, sleep);
 
         t1.sblocca();
         
@@ -145,9 +154,25 @@ public class Grafica extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_avvia;
     private javax.swing.JButton btn_ferma;
+    private javax.swing.JComboBox<String> cmb_velocita;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lbl3;
     private javax.swing.JLabel lbl4;
     // End of variables declaration//GEN-END:variables
+
+    private void difficolta() {
+        difficolta = cmb_velocita.getSelectedItem().toString();
+        if("Lento".equals(difficolta)){
+            sleep = 500;
+        }
+        
+        if("Normale".equals(difficolta)){
+            sleep = 250;
+        }
+        
+        if("Veloce".equals(difficolta)){
+            sleep = 50;
+        }
+    }
 }
